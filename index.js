@@ -4,10 +4,15 @@ require("dotenv").config();
 const router = require("express").Router();
 const { checkLoggedIn } = require("./middlewares/auth");
 const AuthController = require("./controllers/auth");
+const bodyParser = require("body-parser");
 
 const PORT = process.env.PORT;
 
-router.get("/", checkLoggedIn, AuthController.login);
+app.set("view engine", "ejs");
+
+router.post("/", checkLoggedIn, AuthController.login);
+
+app.use(bodyParser.json());
 
 app.use(router);
 
